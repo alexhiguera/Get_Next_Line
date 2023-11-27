@@ -6,7 +6,7 @@
 /*   By: ahiguera <ahiguera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 14:37:49 by ahiguera          #+#    #+#             */
-/*   Updated: 2023/11/24 14:03:43 by ahiguera         ###   ########.fr       */
+/*   Updated: 2023/11/27 16:02:34 by ahiguera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,14 @@
 # include <stdlib.h>
 # include <unistd.h>
 
-# define BUFFER_SIZE 50
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 50
+# endif
 
 size_t	gn_strlen(char *str);
-char	*gn_strdup(char *str);
 void	gn_strncpy(char *result, char *orin, size_t len);
+void	gn_free(char *fres);
+char	gn_strchr(char *str, char c);
 
 char	*get_next_line(int fd);
 

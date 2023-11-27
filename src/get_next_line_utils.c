@@ -6,7 +6,7 @@
 /*   By: ahiguera <ahiguera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 17:48:11 by ahiguera          #+#    #+#             */
-/*   Updated: 2023/11/24 14:11:41 by ahiguera         ###   ########.fr       */
+/*   Updated: 2023/11/27 15:22:38 by ahiguera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,26 +24,6 @@ size_t	gn_strlen(char *str)
 	return (len);
 }
 
-char	*gn_strdup(char *str)
-{
-	size_t	i;
-	size_t	len;
-	char	*dup;
-
-	len = gn_strlen(str);
-	dup = (char *)malloc((len + 1) * (sizeof (char *)));
-	i = 0;
-	if (str == NULL)
-		return (NULL);
-	while (i < len)
-	{
-		str[i] = dup[i];
-		i++;
-	}
-	dup[len] = '\0';
-	return (dup);
-}
-
 void	gn_strncpy(char *result, char *orin, size_t len)
 {
 	size_t	i;
@@ -55,4 +35,24 @@ void	gn_strncpy(char *result, char *orin, size_t len)
 		i++;
 	}
 	result[len] = '\0';
+}
+
+void	gn_free(char *fres)
+{
+	if (fres != NULL)
+		free (fres);
+}
+
+char	gn_strchr(char *str, char c)
+{
+	size_t	i;
+
+	i = 0;
+	while (str[i] != '\0')
+	{
+		if (str[i] == c)
+			return (1);
+		i++;
+	}
+	return (0);
 }

@@ -6,47 +6,71 @@
 /*   By: ahiguera <ahiguera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 16:20:41 by ahiguera          #+#    #+#             */
-/*   Updated: 2023/11/24 14:10:41 by ahiguera         ###   ########.fr       */
+/*   Updated: 2023/11/27 16:07:41 by ahiguera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-
+#include <stdio.h>
 //print line
-char	*get_line(char *line, char *buffer)
+static char	*gn_getline(char *line, char *buffer)
 {
 	char	*result;
 	size_t	line_len;
 	size_t	buf_len;
 
 	line_len = gn_strlen(line);
-	buf_len = gn_strlen(buffer);
+	buf_len = 0;
+	while (buffer[buf_len] != '\n' && buffer[buf_len] != '\0')
+		buf_len++;
+	while (buffer[buf_len] == '\n')
+		buf_len += 1;
 	result = (char *)malloc(sizeof(char) * (line_len + buf_len + 1));
 	if (result == NULL)
-		return (NULL);
+		return (gn_free(line), NULL);
 	gn_strncpy(result, line, line_len);
 	gn_strncpy(result + line_len, buffer, buf_len);
 	result[line_len + buf_len] = '\0';
-	return (result);
+	return (gn_free(line), result);
 }
 
-char	*readline(int fd, char *buffer)
+static void	gn_saverest(char *buffer)
+{
+	size_t	buf_len;
+	size_t	rest_len;
+
+	buf_len = 0;
+	while (buffer[buf_len] != '\n' && buffer[buf_len] != '\0')
+		buf_len++;
+	if (buffer[buf_len] == '\n')
+	{
+		buf_len += 1;
+		rest_len = gn_strlen(buffer + buf_len);
+		gn_strncpy(buffer, buffer + buf_len, rest_len);
+		buffer[rest_len] = '\0';
+	}
+	else
+		buffer[0] = '\0';
+}
+
+static char	*gn_readline(int fd, char *buffer)
 {
 	char	*line;
-	ssize_t	bytes_read;
+	size_t	bytes_read;
 
-	line = NULL;
+	line = gn_getline(NULL, buffer);
 	bytes_read = 1;
-	while (bytes_read > 0)
+	if (line == NULL)
+		return (NULL);
+	while (!gn_strchr(line, '\n') && bytes_read > 0)
 	{
 		bytes_read = read(fd, buffer, BUFFER_SIZE);
-		if (bytes_read == -1)
-			return (NULL);
+		if (bytes_read == -1 || (bytes_read == 0 && gn_strlen(line) == 0))
+			return (buffer[0] = '\0', gn_free(line), NULL);
 		buffer[bytes_read] = '\0';
-		line = get_line(line, buffer);
-		if (line == NULL)
-			return (NULL);
+		line = gn_getline(line, buffer);
 	}
+	gn_saverest(buffer);
 	return (line);
 }
 
@@ -57,6 +81,6 @@ char	*get_next_line(int fd)
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	line = readline(fd, buffer);
+	line = gn_readline(fd, buffer);
 	return (line);
 }
