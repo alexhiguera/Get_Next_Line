@@ -1,18 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ahiguera <ahiguera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 16:20:41 by ahiguera          #+#    #+#             */
-/*   Updated: 2023/11/30 14:59:35 by ahiguera         ###   ########.fr       */
+/*   Updated: 2023/11/30 15:00:18 by ahiguera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
-#include <stdio.h>
-//print line
+#include "get_next_line_bonus.h"
+
 static char	*gn_getline(char *line, char *buffer)
 {
 	char	*result;
@@ -76,11 +75,11 @@ static char	*gn_readline(int fd, char *buffer)
 
 char	*get_next_line(int fd)
 {
-	static char		buffer[BUFFER_SIZE + 1];
+	static char		buffer[4096][BUFFER_SIZE + 1];
 	char			*line;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	line = gn_readline(fd, buffer);
+	line = gn_readline(fd, buffer[fd]);
 	return (line);
 }
