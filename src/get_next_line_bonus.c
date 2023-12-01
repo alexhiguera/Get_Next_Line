@@ -6,7 +6,7 @@
 /*   By: ahiguera <ahiguera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 16:20:41 by ahiguera          #+#    #+#             */
-/*   Updated: 2023/11/30 15:00:18 by ahiguera         ###   ########.fr       */
+/*   Updated: 2023/11/30 15:19:21 by ahiguera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static char	*gn_getline(char *line, char *buffer)
 	while (buffer[buf_len] != '\n' && buffer[buf_len] != '\0')
 		buf_len++;
 	if (buffer[buf_len] == '\n')
-		buf_len += 1;
+		buf_len++;
 	result = (char *)malloc(sizeof(char) * (line_len + buf_len + 1));
 	if (result == NULL)
 		return (NULL);

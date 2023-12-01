@@ -6,13 +6,13 @@
 /*   By: ahiguera <ahiguera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 16:20:41 by ahiguera          #+#    #+#             */
-/*   Updated: 2023/11/30 14:59:35 by ahiguera         ###   ########.fr       */
+/*   Updated: 2023/12/01 23:21:32 by ahiguera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 #include <stdio.h>
-//print line
+
 static char	*gn_getline(char *line, char *buffer)
 {
 	char	*result;
@@ -24,7 +24,7 @@ static char	*gn_getline(char *line, char *buffer)
 	while (buffer[buf_len] != '\n' && buffer[buf_len] != '\0')
 		buf_len++;
 	if (buffer[buf_len] == '\n')
-		buf_len += 1;
+		buf_len++;
 	result = (char *)malloc(sizeof(char) * (line_len + buf_len + 1));
 	if (result == NULL)
 		return (NULL);
