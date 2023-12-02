@@ -6,12 +6,11 @@
 /*   By: ahiguera <ahiguera@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 16:20:41 by ahiguera          #+#    #+#             */
-/*   Updated: 2023/12/01 23:21:32 by ahiguera         ###   ########.fr       */
+/*   Updated: 2023/12/01 23:32:42 by ahiguera         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include <stdio.h>
 
 static char	*gn_getline(char *line, char *buffer)
 {
